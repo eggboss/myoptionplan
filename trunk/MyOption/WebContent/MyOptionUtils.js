@@ -109,6 +109,23 @@ function renewData(){
 	});
 }
 
+function renewDataByOpenWindow(){
+	var yearMonth = getNewestOptionYearMonth();
+	console.log('yearMonth=' + yearMonth);
+	//var url = 'http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=' + yearMonth;
+	var url = 'WTXO_201307.html';
+	var popup = window.open(url, '_blank', 'width=500,height=500');
+	popup.onload = function() {
+		//alert('popup.onload');
+		//alert(popup.document.documentElement.outerHTML);
+        setTimeout(function(){
+        	console.log(popup.document.documentElement.outerHTML);
+        	htmlObj = popup.document.documentElement.outerHTML;
+        	initOptionDataArray(htmlObj);
+        }, 2000);
+    };
+}
+
 function renewDataByIFrame(){
 	var iframe=document.createElement('IFRAME');
 
@@ -263,6 +280,7 @@ function renewReportTable(){
 			for(var j=1; j<=13; j++){
 				var objId = 'report_' + j + '_' + i;
 				$('#' + objId).text('');
+				$('#' + objId).css('color', 'black');
 			}
 		}
 	}
