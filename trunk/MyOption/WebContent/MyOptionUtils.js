@@ -63,6 +63,10 @@ function getTAIEX(){
 	return $find.html().substr(0, 4);
 }
 
+function getNearByExcercisePrice(){
+	return Math.round(getTAIEX()/100) * 100;
+}
+
 function initOptionDataArray(htmlObj){
 	var $find = $(htmlObj).find("tbody");
 	$find.each(function( index ) {
@@ -70,9 +74,9 @@ function initOptionDataArray(htmlObj){
 			var $find2 = $(this).find("tr");
 			$find2.each(function( index2 ) {
 				if(index2 > 0){
-					targetAmtArray[index2-1] = $(this).find("td:eq(7)").text();
-					callAmtArray[index2-1] = $(this).find("td:eq(2)").text();
-					putAmtArray[index2-1] = $(this).find("td:eq(10)").text();
+					targetAmtArray[index2-1] = $(this).find("td:eq(7)").text().trim();
+					callAmtArray[index2-1] = $(this).find("td:eq(2)").text().trim();
+					putAmtArray[index2-1] = $(this).find("td:eq(10)").text().trim();
 					//console.log( index2 + ": " + $(this).find("td:eq(7)").text() + ", call: " + $(this).find("td:eq(2)").text() + ", put: " + $(this).find("td:eq(10)").text() );
 				}
 			});
@@ -122,7 +126,7 @@ function renewDataByIFrame(){
 	    iframe.onload = function(){
 	        //alert("Local iframe is now loaded.");
 	        //alert($(iframe).contents());
-	    	iframeOnLoadedCallback()
+	    	iframeOnLoadedCallback();
 	    };
 	}
 	
@@ -246,7 +250,11 @@ function renewReportTable(){
 				}
 				
 				$('#' + objId).text(tempCalPrice);
-				if(tempCalPrice<0) $('#' + objId).css('color', 'red');
+				if(tempCalPrice<0){
+					$('#' + objId).css('color', 'red');
+				}else{
+					$('#' + objId).css('color', 'black');
+				}
 			}
 		}
 	}
