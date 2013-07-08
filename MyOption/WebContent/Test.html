@@ -6,12 +6,13 @@
 <!-- <script type="text/javascript" src="js/jquery-1.10.1.js"></script> -->
 <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="js/json2.js"></script>
+<script type="text/javascript" src="CommonUtils.js"></script>
 <script type="text/javascript" src="MyOptionUtils.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	//alert(getNewestOptionYearMonth());
 	//alert(getThirdWednesdate(new Date(2013, 5, 1)));
-	//renewData();
+	renewData();
 	
 	/*
 	$.ajax({
@@ -47,6 +48,7 @@ $(document).ready(function() {
 	*/
 	//$('#newdata').load('http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307',function() { alert($('#newdata').html()); });
 		
+	/*
 	var iframe=document.createElement('IFRAME');
 
 	iframe.src='http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307';
@@ -72,6 +74,7 @@ $(document).ready(function() {
 	}
 	
 	document.body.appendChild(iframe);
+	*/
 	
 	//htmlObj = $.parseHTML( "http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307" );
 	//alert($(htmlObj).text());
@@ -80,7 +83,7 @@ $(document).ready(function() {
 	//alert($(htmlObj).text());
 	
 	//alert('加權股價指數：' + getTAIEX());
-	//$('#taiex').text(getTAIEX());
+	$('#taiex').text(getTAIEX());
 	//alert(htmlObj);
 	//alert('加權股價指數：' + $(htmlObj).find('.real-plus-long-txt').html);
 	
@@ -88,7 +91,7 @@ $(document).ready(function() {
 	//var $find = $(tt).find(".rain");
 	//var $find = $(htmlObj).find(".real-plus-tit").next();
 	//alert( $find.html() ) ;
-/*	
+	
 	//alert(getOptionTxAmount('6500', 'CALL'));
 	for(var i=1; i<=8; i++){
 		appendBuySaleSelect('buy_sale_' + i);
@@ -111,7 +114,7 @@ $(document).ready(function() {
 	renewPremium(2);
 	
 	renewReportTable();
-*/
+
 });
 </script>
 <style type="text/css">

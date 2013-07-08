@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>測試頁</title>
 <script type="text/javascript" src="js/jquery-1.10.1.js"></script>
-<script type="text/javascript" src="js/json2.js"></script>
+<script type="text/javascript" src="CommonUtils.js"></script>
 <script type="text/javascript" src="MyOptionUtils.js"></script>
 <script type="text/javascript" src="Demo.js"></script>
 <script type="text/javascript">
@@ -22,8 +22,10 @@ $(document).ready(function() {
 	initReportTable();
 	
 	// init condition
+	
+	//setTimeout(initCondition, 10000);
 	initCondition();
-	renewReportTable();
+//	renewReportTable();
 });
 
 function initCondition(){
@@ -38,6 +40,12 @@ table#report_table td{
 </style>
 </head>
 <body>
+
+<input type="button" onclick="demo05()" value="05 買權多頭價差">
+<input type="button" onclick="demo06()" value="06 賣權多頭價差">
+<input type="button" onclick="demo07()" value="試算">
+<input type="button" onclick="demo08()" value="試算">
+<input type="button" onclick="demo09()" value="試算">
 
 <table border="1" id="condition_table">
 	<tr><td></td><td></td><td></td><td>目前指數</td><td id="taiex"></td></tr>
