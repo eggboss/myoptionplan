@@ -162,7 +162,7 @@ function appendBuySaleSelect(parentId){
 	$('#' + parentId).append('<select id=\'' + newSelectId + '\'></select>');
 	$('#' + newSelectId).append('<option value=\'\'></option>');
 	$('#' + newSelectId).append('<option value=\'BUY\'>BUY</option>');
-	$('#' + newSelectId).append('<option value=\'SALE\'>SALE</option>');
+	$('#' + newSelectId).append('<option value=\'SELL\'>SELL</option>');
 }
 
 function appendCallPutSelect(parentId){
@@ -191,6 +191,8 @@ function renewPremium(index){
 	var excercisePriceValue = $('#excercise_price_' + index + '_select').val();
 	if(callPutValue!='' && excercisePriceValue!=''){
 		$('#premium_' + index).text(getOptionTxAmount(excercisePriceValue, callPutValue));
+	}else{
+		$('#premium_' + index).text('');
 	}
 }
 
@@ -207,10 +209,11 @@ function renewReportTable(){
 	var taiex = parseInt($('#taiex').text(), 10);
 	console.log('taiex=' + taiex);
 	for(var i=1; i<=8; i++){
-		var buySaleValue = $('#buy_sale_' + i + '_select').val();
+		var buySaleValue = $('#buy_sell_' + i + '_select').val();
 		var callPutValue = $('#call_put_' + i + '_select').val();
 		var excercisePriceValue = $('#excercise_price_' + i + '_select').val();
-		var permiumValue = parseInt($('#premium_' + i).text(), 10);
+		//var permiumValue = parseInt($('#premium_' + i).text(), 10);
+		var permiumValue = formatFloat($('#premium_' + i).text(), 2);
 		console.log('permiumValue=' + permiumValue);
 		if(buySaleValue!='' && callPutValue!='' && excercisePriceValue!=''){
 			for(var j=1; j<=13; j++){
@@ -238,13 +241,13 @@ function renewReportTable(){
 						if(tempExcercisePrice >= excercisePriceValue){
 							tempCalPrice = -1*permiumValue;
 						}else{
-							tempCalPrice = tempExcercisePrice-excercisePriceValue-permiumValue;
+							tempCalPrice = excercisePriceValue-tempExcercisePrice-permiumValue;
 						}
 					}else{
 						if(tempExcercisePrice >= excercisePriceValue){
 							tempCalPrice = permiumValue;
 						}else{
-							tempCalPrice = (-1)*(tempExcercisePrice-excercisePriceValue-permiumValue);
+							tempCalPrice = (-1)*(excercisePriceValue-tempExcercisePrice-permiumValue);
 						}
 					}
 				}
@@ -255,6 +258,11 @@ function renewReportTable(){
 				}else{
 					$('#' + objId).css('color', 'black');
 				}
+			}
+		}else{
+			for(var j=1; j<=13; j++){
+				var objId = 'report_' + j + '_' + i;
+				$('#' + objId).text('');
 			}
 		}
 	}
@@ -271,13 +279,17 @@ function calculateTotal(){
 		// summary
 		for(var j=1; j<=8; j++){
 			var tempId = 'report_' + i + '_' + j;
-			var tempValue = $('#' + tempId).text()=='' ? 0 : parseInt($('#' + tempId).text(), 10);
+			var tempValue = $('#' + tempId).text()=='' ? 0 : formatFloat($('#' + tempId).text(), 2);
 			
 			totalValue += tempValue;
 		}
 		
-		$('#' + totalId).text(totalValue);
-		if(totalValue < 0) $('#' + totalId).css('color', 'red');
+		$('#' + totalId).text(formatFloat(totalValue,2));
+		if(totalValue<0){
+			$('#' + totalId).css('color', 'red');
+		}else{
+			$('#' + totalId).css('color', 'black');
+		}
 	}
 	
 }
