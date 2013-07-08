@@ -94,7 +94,7 @@ $(document).ready(function() {
 	
 	//alert(getOptionTxAmount('6500', 'CALL'));
 	for(var i=1; i<=8; i++){
-		appendBuySaleSelect('buy_sale_' + i);
+		appendBuySaleSelect('buy_sell_' + i);
 		appendCallPutSelect('call_put_' + i);
 		appendExcercisePriceSelect('excercise_price_' + i);
 	}
@@ -103,12 +103,12 @@ $(document).ready(function() {
 	
 	
 	// 
-	$('#buy_sale_1_select').val('BUY');
+	$('#buy_sell_1_select').val('BUY');
 	$('#call_put_1_select').val('CALL');
 	$('#excercise_price_1_select').val('8100');
 	renewPremium(1);
 	
-	$('#buy_sale_2_select').val('SALE');
+	$('#buy_sell_2_select').val('SELL');
 	$('#call_put_2_select').val('CALL');
 	$('#excercise_price_2_select').val('8200');
 	renewPremium(2);
@@ -132,14 +132,14 @@ table#report_table td{
 <table border="1" id="condition_table">
 	<tr><td></td><td></td><td></td><td>目前指數</td><td id="taiex"></td></tr>
 	<tr><td></td><td>買/賣</td><td>買權/賣權</td><td>履約價</td><td>權利金</td></tr>
-	<tr><td>1</td><td id="buy_sale_1"></td><td id="call_put_1"></td><td id="excercise_price_1"></td><td id="premium_1"></td></tr>
-	<tr><td>2</td><td id="buy_sale_2"></td><td id="call_put_2"></td><td id="excercise_price_2"></td><td id="premium_2"></td></tr>
-	<tr><td>3</td><td id="buy_sale_3"></td><td id="call_put_3"></td><td id="excercise_price_3"></td><td id="premium_3"></td></tr>
-	<tr><td>4</td><td id="buy_sale_4"></td><td id="call_put_4"></td><td id="excercise_price_4"></td><td id="premium_4"></td></tr>
-	<tr><td>5</td><td id="buy_sale_5"></td><td id="call_put_5"></td><td id="excercise_price_5"></td><td id="premium_5"></td></tr>
-	<tr><td>6</td><td id="buy_sale_6"></td><td id="call_put_6"></td><td id="excercise_price_6"></td><td id="premium_6"></td></tr>
-	<tr><td>7</td><td id="buy_sale_7"></td><td id="call_put_7"></td><td id="excercise_price_7"></td><td id="premium_7"></td></tr>
-	<tr><td>8</td><td id="buy_sale_8"></td><td id="call_put_8"></td><td id="excercise_price_8"></td><td id="premium_8"></td></tr>
+	<tr><td>1</td><td id="buy_sell_1"></td><td id="call_put_1"></td><td id="excercise_price_1"></td><td id="premium_1"></td></tr>
+	<tr><td>2</td><td id="buy_sell_2"></td><td id="call_put_2"></td><td id="excercise_price_2"></td><td id="premium_2"></td></tr>
+	<tr><td>3</td><td id="buy_sell_3"></td><td id="call_put_3"></td><td id="excercise_price_3"></td><td id="premium_3"></td></tr>
+	<tr><td>4</td><td id="buy_sell_4"></td><td id="call_put_4"></td><td id="excercise_price_4"></td><td id="premium_4"></td></tr>
+	<tr><td>5</td><td id="buy_sell_5"></td><td id="call_put_5"></td><td id="excercise_price_5"></td><td id="premium_5"></td></tr>
+	<tr><td>6</td><td id="buy_sell_6"></td><td id="call_put_6"></td><td id="excercise_price_6"></td><td id="premium_6"></td></tr>
+	<tr><td>7</td><td id="buy_sell_7"></td><td id="call_put_7"></td><td id="excercise_price_7"></td><td id="premium_7"></td></tr>
+	<tr><td>8</td><td id="buy_sell_8"></td><td id="call_put_8"></td><td id="excercise_price_8"></td><td id="premium_8"></td></tr>
 </table>
 <input type="button" onclick="renewReportTable()" value="試算">
 <br/>
