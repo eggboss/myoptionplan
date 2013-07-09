@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Tue Jul 09 11:50:50 CST 2013
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=true
+jarname=MyOptionService.jar
+manifest.mergeall=true
+manifest.mainclass=kirk.myoption.service.UpdateWTXOService
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=
