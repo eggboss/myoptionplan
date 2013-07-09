@@ -5,199 +5,30 @@
 <title>測試頁</title>
 <!-- <script type="text/javascript" src="js/jquery-1.10.1.js"></script> -->
 <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="js/jquery.fileDownload.js"></script>
 <script type="text/javascript" src="js/json2.js"></script>
-<script type="text/javascript" src="CommonUtils.js"></script>
-<script type="text/javascript" src="MyOptionUtils.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	//alert(getNewestOptionYearMonth());
-	//alert(getThirdWednesdate(new Date(2013, 5, 1)));
-	renewData();
+	var url = 'http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307';
 	
-	/*
-	$.ajax({
-		url:'http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307',
-		//url: 'http://tw.futures.finance.yahoo.com/future/options.html?opmr=optionfull&opcm=WTXO&opym=201307',
-		//url:"WTXO_201307.html",
-		//url:"NewMarket.html",
-		async:false,
-		//dataType:'text',
-		dataType:'jsonp',
-		type: 'GET',
-		crossDomain: true,
-		context: document.body,
-		success: function(data){
-	        //htmlObj = data;
-	        alert(data);
-	        // init
-	        //initOptionDataArray(htmlObj);
+	//$.fileDownload(url);
+	
+	$.fileDownload(url, {
+	    successCallback: function (url) {
+	        alert('You just got a file download dialog or ribbon for this URL :' + url);
 	    },
-	    error: function (xhr, ajaxOptions, thrownError){
-	    	console.log('status='+xhr.status);
-	        console.log('responseText='+xhr.responseText);
-	        console.log('thrownError='+thrownError);
+	    failCallback: function (html, url) {
+	        alert('Your file download just failed for this URL:' + url + '\r\n' +
+	                'Here was the resulting error HTML: \r\n' + html);
 	    }
 	});
-	*/
-	
-	/*
-	var openWindow = window.open('http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307');
-	//alert(openWindow.document.body);
-	htmlObj = $(openWindow.document.body).html();
-	alert(htmlObj);
-	*/
-	//$('#newdata').load('http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307',function() { alert($('#newdata').html()); });
-		
-	/*
-	var iframe=document.createElement('IFRAME');
-
-	iframe.src='http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307';
-	iframe.setAttribute('id','testframe');
-	iframe.setAttribute('name','testframe');
-
-	if (iframe.attachEvent){
-	    iframe.attachEvent("onload", function(){
-	        alert("Local iframe is now loaded.");
-	        //alert($(iframe).contents());
-	    	htmlObj = $(iframe).contents();
-	    	$('#taiex').text($(iframe).contents().find(".real-plus-tit").next().html());
-	    });
-	} else {
-	    iframe.onload = function(){
-	        //alert("Local iframe is now loaded.");
-	        //alert($(iframe).contents());
-	    	htmlObj = $(iframe).contents();
-	    	//$('#taiex').text(getTAIEX());
-	    	$(iframe).contents().find(".real-plus-tit").next().html();
-	    	//$('#taiex').text($(iframe).contents().find(".real-plus-tit").next().html());
-	    };
-	}
-	
-	document.body.appendChild(iframe);
-	*/
-	
-	//htmlObj = $.parseHTML( "http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307" );
-	//alert($(htmlObj).text());
-	
-	//htmlObj = $.load('http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307')
-	//alert($(htmlObj).text());
-	
-	//alert('加權股價指數：' + getTAIEX());
-	$('#taiex').text(getTAIEX());
-	//alert(htmlObj);
-	//alert('加權股價指數：' + $(htmlObj).find('.real-plus-long-txt').html);
-	
-	//var tt = '<div class="css"><p class="rain">測試1</p></div><div class="rain"><p>測試2</p></div>';
-	//var $find = $(tt).find(".rain");
-	//var $find = $(htmlObj).find(".real-plus-tit").next();
-	//alert( $find.html() ) ;
-	
-	//alert(getOptionTxAmount('6500', 'CALL'));
-	for(var i=1; i<=8; i++){
-		appendBuySaleSelect('buy_sell_' + i);
-		appendCallPutSelect('call_put_' + i);
-		appendExcercisePriceSelect('excercise_price_' + i);
-	}
-	
-	initReportTable();
-	
-	
-	// 
-	$('#buy_sell_1_select').val('BUY');
-	$('#call_put_1_select').val('CALL');
-	$('#excercise_price_1_select').val('8100');
-	renewPremium(1);
-	
-	$('#buy_sell_2_select').val('SELL');
-	$('#call_put_2_select').val('CALL');
-	$('#excercise_price_2_select').val('8200');
-	renewPremium(2);
-	
-	renewReportTable();
-
 });
 </script>
 <style type="text/css">
-table#report_table td{
-	width: 70px;
-	text-align: right;
-}
 
 </style>
 </head>
 <body>
-
-<div id="newdata"></div>
-
-<table border="1" id="condition_table">
-	<tr><td></td><td></td><td></td><td>目前指數</td><td id="taiex"></td></tr>
-	<tr><td></td><td>買/賣</td><td>買權/賣權</td><td>履約價</td><td>權利金</td></tr>
-	<tr><td>1</td><td id="buy_sell_1"></td><td id="call_put_1"></td><td id="excercise_price_1"></td><td id="premium_1"></td></tr>
-	<tr><td>2</td><td id="buy_sell_2"></td><td id="call_put_2"></td><td id="excercise_price_2"></td><td id="premium_2"></td></tr>
-	<tr><td>3</td><td id="buy_sell_3"></td><td id="call_put_3"></td><td id="excercise_price_3"></td><td id="premium_3"></td></tr>
-	<tr><td>4</td><td id="buy_sell_4"></td><td id="call_put_4"></td><td id="excercise_price_4"></td><td id="premium_4"></td></tr>
-	<tr><td>5</td><td id="buy_sell_5"></td><td id="call_put_5"></td><td id="excercise_price_5"></td><td id="premium_5"></td></tr>
-	<tr><td>6</td><td id="buy_sell_6"></td><td id="call_put_6"></td><td id="excercise_price_6"></td><td id="premium_6"></td></tr>
-	<tr><td>7</td><td id="buy_sell_7"></td><td id="call_put_7"></td><td id="excercise_price_7"></td><td id="premium_7"></td></tr>
-	<tr><td>8</td><td id="buy_sell_8"></td><td id="call_put_8"></td><td id="excercise_price_8"></td><td id="premium_8"></td></tr>
-</table>
-<input type="button" onclick="renewReportTable()" value="試算">
-<br/>
-<table border="1" id="report_table">
-	<tr><td>台指</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>TOTAL</td></tr>
-	<tr>
-		<td id="report_1_0"></td><td id="report_1_1"></td><td id="report_1_2"></td><td id="report_1_3"></td><td id="report_1_4"></td>
-		<td id="report_1_5"></td><td id="report_1_6"></td><td id="report_1_7"></td><td id="report_1_8"></td><td id="report_1_9"></td>
-	</tr>
-	<tr>
-		<td id="report_2_0"></td><td id="report_2_1"></td><td id="report_2_2"></td><td id="report_2_3"></td><td id="report_2_4"></td>
-		<td id="report_2_5"></td><td id="report_2_6"></td><td id="report_2_7"></td><td id="report_2_8"></td><td id="report_2_9"></td>
-	</tr>
-	<tr>
-		<td id="report_3_0"></td><td id="report_3_1"></td><td id="report_3_2"></td><td id="report_3_3"></td><td id="report_3_4"></td>
-		<td id="report_3_5"></td><td id="report_3_6"></td><td id="report_3_7"></td><td id="report_3_8"></td><td id="report_3_9"></td>
-	</tr>
-	<tr>
-		<td id="report_4_0"></td><td id="report_4_1"></td><td id="report_4_2"></td><td id="report_4_3"></td><td id="report_4_4"></td>
-		<td id="report_4_5"></td><td id="report_4_6"></td><td id="report_4_7"></td><td id="report_4_8"></td><td id="report_4_9"></td>
-	</tr>
-	<tr>
-		<td id="report_5_0"></td><td id="report_5_1"></td><td id="report_5_2"></td><td id="report_5_3"></td><td id="report_5_4"></td>
-		<td id="report_5_5"></td><td id="report_5_6"></td><td id="report_5_7"></td><td id="report_5_8"></td><td id="report_5_9"></td>
-	</tr>
-	<tr>
-		<td id="report_6_0"></td><td id="report_6_1"></td><td id="report_6_2"></td><td id="report_6_3"></td><td id="report_6_4"></td>
-		<td id="report_6_5"></td><td id="report_6_6"></td><td id="report_6_7"></td><td id="report_6_8"></td><td id="report_6_9"></td>
-	</tr>
-	<tr>
-		<td id="report_7_0"></td><td id="report_7_1"></td><td id="report_7_2"></td><td id="report_7_3"></td><td id="report_7_4"></td>
-		<td id="report_7_5"></td><td id="report_7_6"></td><td id="report_7_7"></td><td id="report_7_8"></td><td id="report_7_9"></td>
-	</tr>
-	<tr>
-		<td id="report_8_0"></td><td id="report_8_1"></td><td id="report_8_2"></td><td id="report_8_3"></td><td id="report_8_4"></td>
-		<td id="report_8_5"></td><td id="report_8_6"></td><td id="report_8_7"></td><td id="report_8_8"></td><td id="report_8_9"></td>
-	</tr>
-	<tr>
-		<td id="report_9_0"></td><td id="report_9_1"></td><td id="report_9_2"></td><td id="report_9_3"></td><td id="report_9_4"></td>
-		<td id="report_9_5"></td><td id="report_9_6"></td><td id="report_9_7"></td><td id="report_9_8"></td><td id="report_9_9"></td>
-	</tr>
-	<tr>
-		<td id="report_10_0"></td><td id="report_10_1"></td><td id="report_10_2"></td><td id="report_10_3"></td><td id="report_10_4"></td>
-		<td id="report_10_5"></td><td id="report_10_6"></td><td id="report_10_7"></td><td id="report_10_8"></td><td id="report_10_9"></td>
-	</tr>
-	<tr>
-		<td id="report_11_0"></td><td id="report_11_1"></td><td id="report_11_2"></td><td id="report_11_3"></td><td id="report_11_4"></td>
-		<td id="report_11_5"></td><td id="report_11_6"></td><td id="report_11_7"></td><td id="report_11_8"></td><td id="report_11_9"></td>
-	</tr>
-	<tr>
-		<td id="report_12_0"></td><td id="report_12_1"></td><td id="report_12_2"></td><td id="report_12_3"></td><td id="report_12_4"></td>
-		<td id="report_12_5"></td><td id="report_12_6"></td><td id="report_12_7"></td><td id="report_12_8"></td><td id="report_12_9"></td>
-	</tr>
-	<tr>
-		<td id="report_13_0"></td><td id="report_13_1"></td><td id="report_13_2"></td><td id="report_13_3"></td><td id="report_13_4"></td>
-		<td id="report_13_5"></td><td id="report_13_6"></td><td id="report_13_7"></td><td id="report_13_8"></td><td id="report_13_9"></td>
-	</tr>
-</table>
 
 </body>
 </html>
