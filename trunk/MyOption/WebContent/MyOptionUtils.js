@@ -89,7 +89,7 @@ function renewData(){
 	console.log('yearMonth=' + yearMonth);
 	$.ajax({
 		//url:"http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=201307",
-		url:"WTXO_201307.html",
+		url:"WTXO.html",
 		//url:"NewMarket.html",
 		async:false,
 		//type: 'get',
@@ -113,7 +113,7 @@ function renewDataByOpenWindow(){
 	var yearMonth = getNewestOptionYearMonth();
 	console.log('yearMonth=' + yearMonth);
 	//var url = 'http://tw.screener.finance.yahoo.net/future/aa03?opmr=optionfull&opcm=WTXO&opym=' + yearMonth;
-	var url = 'WTXO_201307.html';
+	var url = 'WTXO.html';
 	var popup = window.open(url, '_blank', 'width=500,height=500');
 	popup.onload = function() {
 		//alert('popup.onload');
