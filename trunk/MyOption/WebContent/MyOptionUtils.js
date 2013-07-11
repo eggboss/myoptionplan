@@ -224,19 +224,19 @@ function initReportTable(){
 function renewReportTable(){
 	//parseInt(str, 10)
 	var taiex = parseInt($('#taiex').text(), 10);
-	console.log('taiex=' + taiex);
+	//console.log('taiex=' + taiex);
 	for(var i=1; i<=8; i++){
 		var buySaleValue = $('#buy_sell_' + i + '_select').val();
 		var callPutValue = $('#call_put_' + i + '_select').val();
 		var excercisePriceValue = $('#excercise_price_' + i + '_select').val();
 		//var permiumValue = parseInt($('#premium_' + i).text(), 10);
-		var permiumValue = formatFloat($('#premium_' + i).text(), 2);
-		console.log('permiumValue=' + permiumValue);
+		var permiumValue = $('#premium_' + i).text()=='--'?'':formatFloat($('#premium_' + i).text(), 2);
+		//console.log('permiumValue=' + permiumValue);
 		if(buySaleValue!='' && callPutValue!='' && excercisePriceValue!=''){
 			for(var j=1; j<=13; j++){
 				var objId = 'report_' + j + '_' + i;
 				var tempExcercisePrice = parseInt($('#report_' + j + '_0').text(), 10);
-				console.log('tempExcercisePrice=' + tempExcercisePrice);
+				//console.log('tempExcercisePrice=' + tempExcercisePrice);
 				var tempCalPrice = 0;
 				
 				if(callPutValue=='CALL'){
@@ -287,6 +287,8 @@ function renewReportTable(){
 	
 	// TOTAL
 	calculateTotal();
+	
+	showLineChart();
 }
 
 function calculateTotal(){
@@ -310,4 +312,24 @@ function calculateTotal(){
 		}
 	}
 	
+}
+
+function showLineChart(){
+	$('#chartdiv').empty();
+	var myvalues = [];
+	for(var i=1; i<=13; i++){
+		myvalues.push([parseInt($('#report_'+i+'_0').text(), 10), formatFloat($('#report_'+i+'_9').text(), 2)]); 
+	}
+	$.jqplot('chartdiv', [myvalues], {
+		//title:'Exponential Line',
+		//axes:{yaxis:{min:-10, max:240}},
+		axes:{
+			xaxis:{
+				pad: 1.2
+	        },
+			yaxis:{
+				renderer: $.jqplot.LogAxisRenderer
+			}},
+		series:[{color:'#5FAB78'}]
+	});
 }

@@ -84,7 +84,7 @@ function demo14(){
 	empty();
 	$('#plan_name').text('14 賣出勒式部位');
 	var nearByExcercisePrice = getNearByExcercisePrice();
-	setting(1, 'SELL', 'CALL', 4900);
+	setting(1, 'SELL', 'CALL', nearByExcercisePrice+300);
 	setting(2, 'SELL', 'PUT', nearByExcercisePrice-300);
 	renewReportTable();
 }
