@@ -4,6 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>台指選擇權策略試算</title>
 <script type="text/javascript" src="js/jquery-1.10.1.js"></script>
+<script language="javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+<link rel="stylesheet" type="text/css" href="js/jquery.jqplot.css" />
 <script type="text/javascript" src="CommonUtils.js"></script>
 <script type="text/javascript" src="MyOptionUtils.js"></script>
 <script type="text/javascript" src="Demo.js"></script>
@@ -26,12 +28,15 @@ $(document).ready(function() {
 	// init condition
 	//setTimeout(initCondition, 10000);
 	initCondition();
-//	renewReportTable();
+	//	renewReportTable();
+
+	showLineChart()
 });
 
 function initCondition(){
 	demo05();
 }
+
 </script>
 <style type="text/css">
 .td_header{
@@ -50,13 +55,15 @@ table td{
 </style>
 </head>
 <body>
-
 <table border="1" id="condition_table">
 	<tr>
 		<td colspan="3" style="text-align: left; font-weight: bold;"><span id="plan_name"></span></td>
 		<td class="td_header">目前指數</td>
 		<td id="taiex" style="font-weight: bold; background-color: #FFFF99;"></td>
-		<td rowspan="10" colspan="5" style="text-align: left; width: 400px;">
+		<td rowspan="10" colspan="5" style="text-align: right; width: 400px;">
+			<div id="chartdiv" style="height:300px;width:385px; "></div>
+		</td>
+		<td rowspan="24" colspan="1" style="text-align: left; width: 50px;">
 			<input type="button" onclick="demo05()" value="05 買權多頭價差" class="btn_style">
 			<input type="button" onclick="demo06()" value="06 賣權多頭價差" class="btn_style">
 			<input type="button" onclick="demo07()" value="07 買權空頭價差" class="btn_style">
@@ -158,6 +165,5 @@ table td{
 		<td id="report_13_5"></td><td id="report_13_6"></td><td id="report_13_7"></td><td id="report_13_8"></td><td id="report_13_9" class="td_total"></td>
 	</tr>
 </table>
-
 </body>
 </html>
