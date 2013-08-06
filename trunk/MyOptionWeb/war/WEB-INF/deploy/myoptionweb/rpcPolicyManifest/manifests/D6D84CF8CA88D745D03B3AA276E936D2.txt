@@ -1,0 +1,2 @@
+serviceClass: kirk.myoption.client.GreetingService
+path: D6D2A5B9CDC91A985CD99D7C4E379EA3.gwt.rpc
